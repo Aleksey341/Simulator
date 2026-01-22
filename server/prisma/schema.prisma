@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Program {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String?  @db.Text
+  content      String?  @db.Text
+  category     String?
+  duration     String?
+  format       String?
+  price        String?
+  participants String?
+  certificate  String?
+  image        String?
+  modules      String[] @default([])
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?  @db.Text
+  region      String?
+  status      String   @default("В работе")
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  excerpt     String?  @db.Text
+  content     String?  @db.Text
+  image       String?
+  publishedAt DateTime @default(now())
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Expert {
+  id        Int      @id @default(autoincrement())
+  name      String
+  position  String?
+  bio       String?  @db.Text
+  photo     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactRequest {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  program   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  filename  String
+  url       String
+  mimetype  String?
+  size      Int?
+  createdAt DateTime @default(now())
+}
+
+model Settings {
+  id              Int     @id @default(1)
+  email           String?
+  phone           String?
+  address         String?
+  vk              String?
+  telegram        String?
+  youtube         String?
+  siteTitle       String?
+  siteDescription String? @db.Text
+}

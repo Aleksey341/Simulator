@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Prisma
+server/prisma/migrations/
+
+# Cache
+.cache/
