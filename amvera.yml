@@ -1,0 +1,17 @@
+meta:
+  environment: node
+  toolchain:
+    name: nodejs
+    version: 20
+
+build:
+  commands:
+    - cd client && npm ci && npm run build
+    - cd server && npm ci && npx prisma generate
+
+run:
+  persistentStorage:
+    size: 1Gi
+    path: /app/server/uploads
+  containerPort: 5000
+  command: cd server && npm start

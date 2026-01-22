@@ -33,12 +33,24 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
+// Serve React app in production
+const clientDistPath = path.join(__dirname, '../../client/dist')
+app.use(express.static(clientDistPath))
+
+// Handle React routing - return index.html for all non-API routes
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
+    return next()
+  }
+  res.sendFile(path.join(clientDistPath, 'index.html'))
+})
+
 // Error handler
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
 })
