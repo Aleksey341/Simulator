@@ -1,7 +1,7 @@
 meta:
   environment: node
   toolchain:
-    name: nodejs
+    name: npm
     version: 20
 
 build:
@@ -14,4 +14,4 @@ run:
     size: 1Gi
     path: /app/server/uploads
   containerPort: 5000
-  command: cd server && npm start
+  command: cd server && npx prisma db push && node prisma/seed.js && npm start
