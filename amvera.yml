@@ -1,17 +1,9 @@
 meta:
-  environment: node
+  environment: docker
   toolchain:
-    name: npm
-    version: 20
-
-build:
-  commands:
-    - cd client && npm ci && npm run build
-    - cd server && npm ci && npx prisma generate
+    name: docker
+    version: latest
 
 run:
-  persistentStorage:
-    size: 1Gi
-    path: /app/server/uploads
+  persistenceMount: /app/server/uploads
   containerPort: 5000
-  command: cd server && npx prisma db push && node prisma/seed.js && npm start
