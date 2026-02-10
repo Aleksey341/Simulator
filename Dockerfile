@@ -20,4 +20,4 @@ RUN mkdir -p /app/server/uploads
 
 EXPOSE 5000
 
-CMD cd /app/server && npx prisma db push && node prisma/seed.js && npm start
+CMD cd /app/server && npm start
